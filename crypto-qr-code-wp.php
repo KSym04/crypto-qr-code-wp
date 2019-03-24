@@ -72,7 +72,11 @@ class crypto_qr_code_wp {
 			'basename'	 => plugin_basename( __FILE__ ),
 			'path'	     => plugin_dir_path( __FILE__ ),
 			'dir'	     => plugin_dir_url( __FILE__ )
-		);
+        );
+        
+        // Libraries.
+        include( 'includes/shortcode.php' );
+        include( 'includes/widgets.php' );
 	}
 }
 

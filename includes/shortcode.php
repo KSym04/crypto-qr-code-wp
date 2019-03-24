@@ -9,7 +9,7 @@ function crypto_qr_code_wp_shortcode_logic( $atts ) {
 		'address' => ''
     ), $atts );
 
-    if( empty( $a['address'] ) && empty( $a['address'] ) ) {
+    if( empty( $a['label'] ) && empty( $a['address'] ) ) {
         return;
     }
     
@@ -18,9 +18,9 @@ function crypto_qr_code_wp_shortcode_logic( $atts ) {
     settype( $content, 'string' );
 
     // Build template.
-    $content .= '<div>
-                    <a href="#'. $a['address'] .'" title="'. $a['label'] .' '. $a['address'] .'">
-                        <label>'. $a['label'] .'</label>: '. $a['address'] .'
+    $content .= '<div class="cqcw-block">
+                    <a href="#'. $a['label'] .'_'. $a['address'] .'" title="'. $a['label'] .' - '. $a['address'] .'" class="cqcw-block--button">
+                        <label class="cqcw-block--label">'. $a['label'] .'</label>: <em class="cqcw-block--address">'. $a['address'] .'</em>
                     </a>
                  </div>';
 
