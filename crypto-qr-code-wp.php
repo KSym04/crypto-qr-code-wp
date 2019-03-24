@@ -74,24 +74,35 @@ class crypto_qr_code_wp {
 			'dir'	     => plugin_dir_url( __FILE__ )
         );
 
+        // Global Defines.
+        define( 'CRYPTO_QR_CODE_WP_UPLOADS', trailingslashit( WP_CONTENT_DIR ) );
+        define( 'CRYPTO_QR_CODE_WP_URL', trailingslashit( WP_CONTENT_URL ) );
+
         // Resources.
-        add_action( 'init',	array( $this, 'mesterz_calculator_register_bootstrap' ) );
+        add_action( 'init',	array( $this, 'register_assets' ) );
         
         // Libraries.
         include( 'includes/shortcode.php' );
         include( 'includes/widgets.php' );
+
+        // Vendor.
+        include( 'includes/vendor/phpqrcode/qrlib.php' );
     }
     
 	/*
-	*  mesterz_calculator_register_bootstrap
+	*  register_assets
 	*
 	*  @type	function
 	*  @date	03/24/19
 	*  @since	1.0.0
 	*/
-	function mesterz_calculator_register_bootstrap() {
-		wp_register_script( 'crypto-qr-code-wp', plugin_dir_url( __FILE__ ) . 'assets/js/script.js', array( 'jquery' ), $this->settings['version'] );
+	function register_assets() {
+        wp_register_script( 'crypto-qr-code-wp', plugin_dir_url( __FILE__ ) . 'assets/js/script.js', array( 'jquery' ), $this->settings['version'] );
         wp_register_style( 'crypto-qr-code-wp', plugin_dir_url( __FILE__ ) . 'assets/css/style.css', array(), $this->settings['version'] );
+
+        // Call assets.
+        wp_enqueue_script( 'crypto-qr-code-wp' );
+        wp_enqueue_style( 'crypto-qr-code-wp' );
     }
 }
 

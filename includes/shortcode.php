@@ -5,11 +5,12 @@ if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
 function crypto_qr_code_wp_shortcode_logic( $atts ) {
 	// Parse shortcode attributes.
 	$a = shortcode_atts( array(
-		'label' => '',
+        'heading' => esc_html__( 'Donate', 'crypto-qr-code-wp' ),
+		'label'   => '',
 		'address' => ''
     ), $atts );
 
-    if( empty( $a['label'] ) && empty( $a['address'] ) ) {
+    if( empty( $a['address'] ) || empty( $a['label'] ) ) {
         return;
     }
     
@@ -17,15 +18,24 @@ function crypto_qr_code_wp_shortcode_logic( $atts ) {
     $content = NULL;
     settype( $content, 'string' );
 
-    // Build template.
-    $content .= '<span class="cqcw-block">
-                    <label class="cqcw-block--label">'. $a['label'] .'</label>:
-                    <a href="#'. $a['label'] .'_'. $a['address'] .'" title="'. $a['label'] .' - '. $a['address'] .'" class="cqcw-block--button">'. $a['address'] .'</a>
-                 </span>';
+    $heading = $a['heading'];
+    $label   = $a['label'];
+    $address = $a['address'];
 
-    // Call assets.
-    wp_enqueue_script( 'crypto-qr-code-wp' );
-    wp_enqueue_style( 'crypto-qr-code-wp' );
+    // Generate QR address.
+    $qr_svgCode_generate = QRcode::svg( $address, CRYPTO_QR_CODE_WP_UPLOADS . 'uploads/crypto-qr-codes/' . $address . '.svg' );
+    $qr_svgCode_url = CRYPTO_QR_CODE_WP_URL . 'uploads/crypto-qr-codes/' . $address . '.svg';
+
+    // Build template.
+    $content .= "<span class=\"cqcw-block\">
+                    <label class=\"cqcw-block__label\">{$label}:</label>
+                    <a href=\"#{$label}_{$address}\" class=\"cqcw-block__button\">{$address}</a>
+                    <em id=\"{$label}_{$address}\" class=\"cqcw-block__dialog\">
+                        <strong class=\"cqcw-block__dialog-heading\">{$heading}</strong>
+                        <img src=\"{$qr_svgCode_url}\" alt=\"{$address}\" />
+                        <strong class=\"cqcw-block__dialog-content\">{$address}</strong>
+                    </em>
+                 </span>";
 
     return $content;
 }
