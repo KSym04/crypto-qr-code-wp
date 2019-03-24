@@ -2,23 +2,31 @@
 Contributors: ksym04
 Tags: crypto, bitcoin, cryptocurrency, qr code
 Requires at least: 4.7
-Tested up to: 4.8.3
+Tested up to: 5.1.1
 Stable tag: 1.0.0
 License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Add cryptocurrencies QR code donate lightbox
+Add cryptocurrencies QR code donate with lightbox.
 
 == Description ==
 
-== Language Support ==
+...
 
 == Installation ==
 
-== Frequently Asked Questions ==
+1. Download the plugin via WordPress.org
+2. Upload the `crypto-qr-code-wp` directory to the `/wp-content/plugins/` directory via FTP
+3. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Screenshots ==
 
+1. Description of first screenshot named screenshot-1
+2. Description of second screenshot named screenshot-2
+3. Description of third screenshot named screenshot-3
+
 == Changelog ==
 
-= 1.0.0 =
+= 1.0 =
+* 2019-03-24
 * Initial Release

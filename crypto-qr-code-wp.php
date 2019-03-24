@@ -2,13 +2,13 @@
 /*
 Plugin Name: Crypto QR Code WP
 Plugin URI: https://www.dopethemes.com/downloads/crypto-qr-code-wp/
-Description: Add cryptocurrencies QR code donate lightbox.
+Description: Add cryptocurrencies QR code donate with lightbox.
 Author: DopeThemes
 Author URI: https://www.dopethemes.com/
 Text Domain: crypto-qr-code-wp
 Version: 1.0.0
 License: GPLv3
-License URI: license.txt
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Domain Path: /lang
 */
 
@@ -30,16 +30,16 @@ Domain Path: /lang
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1335, USA
 */
 
-if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
 
-if( ! class_exists('crypto_qr_code_wp') ) :
+if( ! class_exists( 'crypto_qr_code_wp' ) ) :
 
 class crypto_qr_code_wp {
 
 	/*
 	*  __construct
 	*
-	*  A dummy constructor to ensure Crypto QR Code WP is only initialized once
+	*  A dummy constructor to ensure Crypto QR Code WP is only initialized once.
 	*
 	*  @type	function
 	*  @date	03/24/19
@@ -49,13 +49,13 @@ class crypto_qr_code_wp {
 	*  @return	N/A
 	*/
 	public function __construct() {
-		/* Do nothing here */
+        // Do nothing here.
 	}
 
 	/*
 	*  initialize
 	*
-	*  The real constructor to initialize Crypto QR Code WP
+	*  The real constructor to initialize Crypto QR Code WP.
 	*
 	*  @type	function
 	*  @date	03/24/19
@@ -65,12 +65,10 @@ class crypto_qr_code_wp {
 	*  @return	N/A
 	*/
 	public function initialize() {
-		// parameters.
+		// Parameters.
 		$this->settings = array(
 			'name'		 => esc_html__( 'Crypto QR Code WP', 'crypto-qr-code-wp' ),
 			'version'	 => '1.0.0',
-			'menu_slug'	 => 'turnoff_rest_api_settings',
-			'permission' => 'manage_options',
 			'basename'	 => plugin_basename( __FILE__ ),
 			'path'	     => plugin_dir_path( __FILE__ ),
 			'dir'	     => plugin_dir_url( __FILE__ )
@@ -103,7 +101,7 @@ function crypto_qr_code_wp() {
 	return $crypto_qr_code_wp;
 }
 
-// initialize
+// initialize.
 crypto_qr_code_wp();
 
-endif; // class_exists check
+endif; // class_exists check.
