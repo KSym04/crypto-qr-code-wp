@@ -40,12 +40,13 @@
 
 .cqcw-block__dialog-heading {
     display: block;
-    padding-top: 20px;
-    line-height: 1;
+    padding: 20px 15px 0;
+    line-height: 1.2;
     font-size: 18px;
-	font-style: normal;
-	text-transform: uppercase;
-	text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
 }
 
 .cqcw-block__dialog-content {
