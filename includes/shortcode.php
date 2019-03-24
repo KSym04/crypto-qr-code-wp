@@ -8,6 +8,10 @@ function crypto_qr_code_wp_shortcode_logic( $atts ) {
 		'label' => '',
 		'address' => ''
     ), $atts );
+
+    if( empty( $a['address'] ) && empty( $a['address'] ) ) {
+        return;
+    }
     
     // Set variables.
     $content = NULL;
