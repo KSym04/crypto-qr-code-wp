@@ -73,11 +73,26 @@ class crypto_qr_code_wp {
 			'path'	     => plugin_dir_path( __FILE__ ),
 			'dir'	     => plugin_dir_url( __FILE__ )
         );
+
+        // Resources.
+        add_action( 'init',	array( $this, 'mesterz_calculator_register_bootstrap' ) );
         
         // Libraries.
         include( 'includes/shortcode.php' );
         include( 'includes/widgets.php' );
-	}
+    }
+    
+	/*
+	*  mesterz_calculator_register_bootstrap
+	*
+	*  @type	function
+	*  @date	03/24/19
+	*  @since	1.0.0
+	*/
+	function mesterz_calculator_register_bootstrap() {
+		wp_register_script( 'crypto-qr-code-wp', plugin_dir_url( __FILE__ ) . 'assets/js/script.js', array( 'jquery' ), $this->settings['version'] );
+        wp_register_style( 'crypto-qr-code-wp', plugin_dir_url( __FILE__ ) . 'assets/css/style.css', array(), $this->settings['version'] );
+    }
 }
 
 /*
