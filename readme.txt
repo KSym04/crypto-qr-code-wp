@@ -19,12 +19,6 @@ Add cryptocurrencies QR code donate with lightbox.
 2. Upload the `crypto-qr-code-wp` directory to the `/wp-content/plugins/` directory via FTP
 3. Activate the plugin through the 'Plugins' menu in WordPress
 
-== Screenshots ==
-
-1. Description of first screenshot named screenshot-1
-2. Description of second screenshot named screenshot-2
-3. Description of third screenshot named screenshot-3
-
 == Changelog ==
 
 = 1.0 =

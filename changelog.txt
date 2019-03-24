@@ -1,0 +1,4 @@
+*** Crypto QR Code WP Changelog ***
+
+2019.03.24 - version 1.0.0
+ * Initial release
