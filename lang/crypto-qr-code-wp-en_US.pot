@@ -17,3 +17,7 @@ msgstr ""
 #: crypto-qr-code-wp.php:70
 msgid "Crypto QR Code WP"
 msgstr ""
+
+#: includes/shortcode.php:8
+msgid "Donate"
+msgstr ""
