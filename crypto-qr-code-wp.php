@@ -95,7 +95,7 @@ class crypto_qr_code_wp {
 	*  register_assets
 	*
 	*  @type	function
-	*  @date	03/24/19
+	*  @date	03/26/19
 	*  @since	1.0.0
 	*/
 	function register_assets() {
@@ -111,7 +111,7 @@ class crypto_qr_code_wp {
 	*  create_file_resources
 	*
 	*  @type	function
-	*  @date	03/25/19
+	*  @date	03/26/19
 	*  @since	1.0.1
 	*/
 	function create_file_resources() {
