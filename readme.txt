@@ -32,6 +32,10 @@ Disclaimer: Only used your wallet public key address and never ever reveal your 
 
 The shortcode 'cqcw_generator' has three parameters - heading, label and address. Sample: cqcw_generator heading="Donate" label="BTC" address="1GJpyaLZjQ8JKaKih3UCwpuJAV15fTy9Rq"
 
+== Translations ==
+
+* English (en_US)
+
 == Changelog ==
 
 = 1.0.1 =

@@ -68,7 +68,7 @@ class crypto_qr_code_wp {
 		// Parameters.
 		$this->settings = array(
 			'name'		 => esc_html__( 'Crypto QR Code WP', 'crypto-qr-code-wp' ),
-			'version'	 => '1.0.0',
+			'version'	 => '1.0.1',
 			'basename'	 => plugin_basename( __FILE__ ),
 			'path'	     => plugin_dir_path( __FILE__ ),
 			'dir'	     => plugin_dir_url( __FILE__ )
