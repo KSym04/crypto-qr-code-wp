@@ -133,7 +133,6 @@ class crypto_qr_code_wp {
             $rules .= "Order Allow,Deny\n";
             $rules .= "Allow from all\n";
             $rules .= "</FilesMatch>\n";
-            $rules .= "Options -Indexes\n";
 
             $fp = fopen( $htaccess_file, "w" );
             if ( ! $fp ) {

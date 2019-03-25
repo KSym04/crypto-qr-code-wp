@@ -7,7 +7,7 @@ Stable tag: 1.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Add cryptocurrencies QR code donate with lightbox.
+Add cryptocurrencies QR code donate with tooltip.
 
 == Description ==
 
@@ -21,6 +21,17 @@ Add cryptocurrencies QR code donate with lightbox.
 
 == Changelog ==
 
-= 1.0 =
+= 1.0.1 =
+* 2019-03-29
+* New - Added 'Crypto QR Code' widget
+* Tweak - Enhanced file security
+
+= 1.0.0 =
 * 2019-03-24
 * Initial Release
+
+== Upgrade Notice ==
+
+= 1.0.1 =
+* 2019-03-29
+* New - Added 'Crypto QR Code' widget
