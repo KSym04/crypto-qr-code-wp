@@ -24,9 +24,9 @@ function crypto_qr_code_wp_shortcode_logic( $atts ) {
 
     // Generate QR address.
     $qr_svgCode_file = CRYPTO_QR_CODE_WP_IMG_DIR . $address . '.svg';
+    $qr_svgCode_url = CRYPTO_QR_CODE_WP_URL . 'uploads/crypto-qr-codes/' . $address . '.svg';
     if( ! file_exists( $qr_svgCode_file ) ) {
         $qr_svgCode_generate = QRcode::svg( $address, $qr_svgCode_file );
-        $qr_svgCode_url = CRYPTO_QR_CODE_WP_URL . 'uploads/crypto-qr-codes/' . $address . '.svg';
     }
 
     // Build template.
