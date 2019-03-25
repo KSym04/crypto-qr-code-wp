@@ -128,11 +128,11 @@ class crypto_qr_code_wp {
             settype( $rules, 'string' );
 
             $rules  = "Options -Indexes\n";
-            $rules .= "Deny from all\n";
+            $rules .= "deny from all\n";
             $rules .= "<FilesMatch '\.(svg)$'>\n";
             $rules .= "Order Allow,Deny\n";
             $rules .= "Allow from all\n";
-            $rules .= "</FilesMatch>\n";
+            $rules .= "</FilesMatch>";
 
             $fp = fopen( $htaccess_file, "w" );
             if ( ! $fp ) {
