@@ -2,11 +2,11 @@
 /*
 Plugin Name: Crypto QR Code WP
 Plugin URI: https://www.dopethemes.com/downloads/crypto-qr-code-wp/
-Description: Add cryptocurrencies QR code donate with lightbox.
+Description: Add cryptocurrencies QR code donate with tooltip.
 Author: DopeThemes
 Author URI: https://www.dopethemes.com/
 Text Domain: crypto-qr-code-wp
-Version: 1.0.0
+Version: 1.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Domain Path: /lang
@@ -75,11 +75,13 @@ class crypto_qr_code_wp {
         );
 
         // Global Defines.
-        define( 'CRYPTO_QR_CODE_WP_UPLOADS', trailingslashit( WP_CONTENT_DIR ) );
+        define( 'CRYPTO_QR_CODE_WP_UPLOAD', trailingslashit( WP_CONTENT_DIR ) . 'uploads/' );
+        define( 'CRYPTO_QR_CODE_WP_IMG_DIR', trailingslashit( WP_CONTENT_DIR ) . 'uploads/crypto-qr-codes/' );
         define( 'CRYPTO_QR_CODE_WP_URL', trailingslashit( WP_CONTENT_URL ) );
 
         // Resources.
         add_action( 'init',	array( $this, 'register_assets' ) );
+        add_action( 'admin_init', array( $this, 'create_file_resources' ) );
         
         // Libraries.
         include( 'includes/shortcode.php' );
@@ -103,6 +105,54 @@ class crypto_qr_code_wp {
         // Call assets.
         wp_enqueue_script( 'crypto-qr-code-wp' );
         wp_enqueue_style( 'crypto-qr-code-wp' );
+    }
+
+	/*
+	*  create_file_resources
+	*
+	*  @type	function
+	*  @date	03/25/19
+	*  @since	1.0.1
+	*/
+	function create_file_resources() {
+        // Check upload folder existence.
+        if( ! is_dir( CRYPTO_QR_CODE_WP_IMG_DIR ) && is_writable( CRYPTO_QR_CODE_WP_UPLOAD ) && current_user_can( 'manage_options' ) ) {
+            mkdir( CRYPTO_QR_CODE_WP_IMG_DIR , 0755 );
+        }
+
+        // HTAccess rules and secure folder.
+        $htaccess_file = CRYPTO_QR_CODE_WP_IMG_DIR . '.htaccess';
+        if( ( ! file_exists( $htaccess_file ) && is_writable( CRYPTO_QR_CODE_WP_UPLOAD ) ) && current_user_can( 'manage_options' ) ) {
+            // Set htaccess rules.
+            $rules = NULL;
+            settype( $rules, 'string' );
+
+            $rules  = "Options -Indexes\n";
+            $rules .= "Deny from all\n";
+            $rules .= "<FilesMatch '\.(svg)$'>\n";
+            $rules .= "Order Allow,Deny\n";
+            $rules .= "Allow from all\n";
+            $rules .= "</FilesMatch>\n";
+            $rules .= "Options -Indexes\n";
+
+            $fp = fopen( $htaccess_file, "w" );
+            if ( ! $fp ) {
+                return false;
+            }
+
+            // File lock security.
+            flock( $fp, LOCK_EX );
+
+            // Start writing data.
+            fseek( $fp, 0 );
+            $data_bytes = fwrite( $fp, $rules );
+            if ( $data_bytes ) {
+                ftruncate( $fp, ftell( $fp ) );
+            }
+            fflush( $fp );
+            flock( $fp, LOCK_UN );
+            fclose( $fp );
+        }
     }
 }
 
