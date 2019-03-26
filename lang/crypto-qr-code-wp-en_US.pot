@@ -18,6 +18,34 @@ msgstr ""
 msgid "Crypto QR Code WP"
 msgstr ""
 
-#: includes/shortcode.php:8
+#: includes/shortcode.php:14 includes/widgets.php:48
 msgid "Donate"
+msgstr ""
+
+#: includes/widgets.php:16
+msgid "Create element of cryptocurreny label, wallet address and QR code."
+msgstr ""
+
+#: includes/widgets.php:41
+msgid "Title:"
+msgstr ""
+
+#: includes/widgets.php:47
+msgid "Tooltip Text Heading:"
+msgstr ""
+
+#: includes/widgets.php:53
+msgid "Crypto Label:"
+msgstr ""
+
+#: includes/widgets.php:54
+msgid "BTC"
+msgstr ""
+
+#: includes/widgets.php:59
+msgid "Wallet Address:"
+msgstr ""
+
+#: includes/widgets.php:60
+msgid "Insert wallet public key address"
 msgstr ""
