@@ -3,8 +3,10 @@
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
 
 /**
- * @since 1.0.0
+ * Shortcode logic for displaying the Crypto QR Code element.
  * 
+ * @since 1.0.2
+ * @package Crypto QR Code WP
  */
 function crypto_qr_code_wp_shortcode_logic( $atts ) {
 	// Parse shortcode attributes.
