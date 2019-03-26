@@ -35,11 +35,13 @@ function crypto_qr_code_wp_shortcode_logic( $atts ) {
         $qr_svgCode_generate = QRcode::svg( $address, $qr_svgCode_file );
     }
 
+    $random_num = substr( md5( mt_rand( 0, 999999999 ) ), 0, 9 ); 
+
     // Build template.
     $content .= "<span class=\"cqcw-block\">
                     <label class=\"cqcw-block__label\">{$label}:</label>
-                    <a href=\"#{$label}_{$address}\" class=\"cqcw-block__button\">{$address}</a>
-                    <em id=\"{$label}_{$address}\" class=\"cqcw-block__dialog\">
+                    <a href=\"#{$label}_{$address}_{$random_num}\" class=\"cqcw-block__button\">{$address}</a>
+                    <em id=\"{$label}_{$address}_{$random_num}\" class=\"cqcw-block__dialog\">
                         <strong class=\"cqcw-block__dialog-heading\">{$heading} {$label}</strong>
                         <img src=\"{$qr_svgCode_url}\" alt=\"{$address}\" />
                         <strong class=\"cqcw-block__dialog-content\">{$address}</strong>
