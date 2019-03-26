@@ -5,7 +5,7 @@
 **Contributors:** ksym04\
 **Tags:** crypto, bitcoin, cryptocurrency, qr code\
 **Requires at least:** 4.7\
-**Tested up to:** 5.1.1\
+**Tested up to:** 5.1\
 **Stable tag:** 1.0.1\
 **License:** GPLv3\
 **License URI:** [https://www.gnu.org/licenses/gpl-3.0.html](https://www.gnu.org/licenses/gpl-3.0.html)
@@ -35,6 +35,10 @@ The shortcode 'cqcw_generator' has three parameters - heading, label and address
 * English (en_US)
 
 ## Changelog ##
+
+### 1.0.1 - Mar 27, 2019 ###
+
+* Tweak - Improved CSS theme compatibility
 
 ### 1.0.1 - Mar 26, 2019 ###
 
