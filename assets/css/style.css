@@ -1,12 +1,17 @@
 .cqcw-init .cqcw-block {
 	display: inline-block;
 	position: relative;
+	word-break: break-all;
 }
 
 .cqcw-init .cqcw-block__button,
 .cqcw-init .cqcw-block__button:hover,
 .cqcw-init .cqcw-block__button:focus {
     outline: none;
+}
+
+.cqcw-init .cqcw-block__button {
+    word-wrap: unset;
 }
 
 .cqcw-init .cqcw-block__label {
@@ -21,8 +26,8 @@
 	box-sizing: border-box;
     display: none;
     position: absolute;
-    bottom: 0;
-    left: 100%;
+    bottom: 120%;
+    right: 0;
     width: 230px;
     max-width: 230px;
     background-color: #ffffff;

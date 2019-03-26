@@ -36,8 +36,9 @@ The shortcode 'cqcw_generator' has three parameters - heading, label and address
 
 ## Changelog ##
 
-### 1.0.1 - Mar 27, 2019 ###
+### 1.0.2 - Mar 27, 2019 ###
 
+* Fix - Widget issues
 * Tweak - Improved CSS theme compatibility
 
 ### 1.0.1 - Mar 26, 2019 ###

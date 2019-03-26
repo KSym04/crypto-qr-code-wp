@@ -1,6 +1,7 @@
 *** Crypto QR Code WP Changelog ***
 
 2019.03.27 - version 1.0.2
+ * Fix - Widget issue
  * Tweak - Improved CSS theme compatibility
 
 2019.03.26 - version 1.0.1
