@@ -39,7 +39,7 @@ The shortcode 'cqcw_generator' has three parameters - heading, label and address
 == Changelog ==
 
 = 1.0.2 =
-* Tweak - Improve CSS styling
+* Tweak - Improved CSS theme compatibility
 
 = 1.0.1 =
 * 2019-03-26
