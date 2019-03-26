@@ -84,6 +84,7 @@ class crypto_qr_code_wp {
         add_action( 'admin_init', array( $this, 'create_file_resources' ) );
         
         // Libraries.
+        include( 'includes/helpers.php' );
         include( 'includes/shortcode.php' );
         include( 'includes/widgets.php' );
 
