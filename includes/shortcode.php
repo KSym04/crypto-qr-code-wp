@@ -2,6 +2,10 @@
 
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
 
+/**
+ * @since 1.0.0
+ * 
+ */
 function crypto_qr_code_wp_shortcode_logic( $atts ) {
 	// Parse shortcode attributes.
 	$a = shortcode_atts( array(

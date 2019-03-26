@@ -6,7 +6,7 @@ Description: Add cryptocurrencies QR code donate with tooltip.
 Author: DopeThemes
 Author URI: https://www.dopethemes.com/
 Text Domain: crypto-qr-code-wp
-Version: 1.0.1
+Version: 1.0.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Domain Path: /lang
@@ -68,7 +68,7 @@ class crypto_qr_code_wp {
 		// Parameters.
 		$this->settings = array(
 			'name'		 => esc_html__( 'Crypto QR Code WP', 'crypto-qr-code-wp' ),
-			'version'	 => '1.0.1',
+			'version'	 => '1.0.2',
 			'basename'	 => plugin_basename( __FILE__ ),
 			'path'	     => plugin_dir_path( __FILE__ ),
 			'dir'	     => plugin_dir_url( __FILE__ )

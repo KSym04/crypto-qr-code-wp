@@ -9,10 +9,6 @@
     outline: none;
 }
 
-.cqcw-block__button:focus {
-    color: #000000;
-}
-
 .cqcw-block__label {
     font-weight: 600;
 }
@@ -22,11 +18,13 @@
 }
 
 .cqcw-block__dialog {
+	box-sizing: border-box;
     display: none;
     position: absolute;
     bottom: 0;
     left: 100%;
     width: 230px;
+    max-width: 230px;
     background-color: #ffffff;
     margin: 0 0 0 1em;
     padding: 0;
@@ -39,9 +37,11 @@
 }
 
 .cqcw-block__dialog-heading {
+	box-sizing: border-box;
     display: block;
     padding: 20px 15px 0;
     line-height: 1.2;
+    color: #686868;
     font-size: 18px;
     font-style: normal;
     font-weight: 600;
@@ -50,6 +50,7 @@
 }
 
 .cqcw-block__dialog-content {
+	box-sizing: border-box;
     display: block;
     width: 100%;
     background-color: #e5e5e5;
@@ -61,10 +62,12 @@
     font-style: normal;
     font-weight: 400;
     text-align: center;
+    word-wrap: break-word;
 }
 
 .cqcw-block__button-close,
 .cqcw-block__button-close:hover {
+	box-sizing: border-box;
 	outline: none;
 	position: absolute;
 	top: -1px;
