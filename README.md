@@ -1,11 +1,11 @@
 # Crypto QR Code WP #
 
 **Contributors:** ksym04\
-**Tags:** bitcoin, cryptocurrency, qr code, crypto donations, donations\
+**Tags:** bitcoin, cryptocurrency, qr code, bitcoin donation, crypto donation\
 **Requires at least:** 4.7\
 **Tested up to:** 7.0\
 **Requires PHP:** 7.4\
-**Stable tag:** 1.1.0\
+**Stable tag:** 1.2.0\
 **License:** GPLv3\
 **License URI:** [https://www.gnu.org/licenses/gpl-3.0.html](https://www.gnu.org/licenses/gpl-3.0.html)
 
@@ -57,6 +57,13 @@ Nowhere. The QR code is drawn in the visitor's browser each time the page loads,
 QR codes are rendered with [qrcode.js](https://github.com/davidshimjs/qrcodejs) by Sangmin Shim, bundled under the MIT License so generation stays entirely client side with no external requests.
 
 ## Changelog ##
+
+### 1.2.0 ###
+
+* New - Copy button so visitors can copy your wallet address in one click.
+* New - Coin presets and icons for Bitcoin, Ethereum, Litecoin, Tether, Dogecoin, Solana, Bitcoin Cash, and Monero.
+* New - Quick coin picker on the settings page that fills the label for you.
+* Tweak - Coin icon shown next to the label on the front end.
 
 ### 1.1.0 ###
 

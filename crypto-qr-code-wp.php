@@ -6,7 +6,7 @@ Description: Display a cryptocurrency wallet address with a click to reveal QR c
 Author: DopeThemes
 Author URI: https://www.dopethemes.com/
 Text Domain: crypto-qr-code-wp
-Version: 1.1.0
+Version: 1.2.0
 Requires at least: 4.7
 Requires PHP: 7.4
 License: GPLv3
@@ -63,7 +63,7 @@ class crypto_qr_code_wp {
 		// Parameters.
 		$this->settings = array(
 			'name'     => esc_html__( 'Crypto QR Code WP', 'crypto-qr-code-wp' ),
-			'version'  => '1.1.0',
+			'version'  => '1.2.0',
 			'basename' => plugin_basename( __FILE__ ),
 			'path'     => plugin_dir_path( __FILE__ ),
 			'dir'      => plugin_dir_url( __FILE__ ),
@@ -74,6 +74,7 @@ class crypto_qr_code_wp {
 
 		// Libraries (absolute paths so includes resolve in every SAPI, admin included).
 		$path = $this->settings['path'];
+		include_once $path . 'includes/coins.php';
 		include_once $path . 'includes/helpers.php';
 		include_once $path . 'includes/shortcode.php';
 		include_once $path . 'includes/widgets.php';

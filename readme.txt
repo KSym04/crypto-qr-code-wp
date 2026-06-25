@@ -1,10 +1,10 @@
 === Crypto QR Code WP ===
 Contributors: ksym04
-Tags: bitcoin, cryptocurrency, qr code, crypto donations, donations
+Tags: bitcoin, cryptocurrency, qr code, bitcoin donation, crypto donation
 Requires at least: 4.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,6 +26,8 @@ Save your wallets once on the settings page and reuse them anywhere with a short
 
 * A settings page where you manage a library of wallets, each with a ready made shortcode you can copy.
 * A click to reveal QR code tooltip that keeps your page tidy.
+* A copy button so visitors can copy your wallet address in one click.
+* Built in coin presets and icons for Bitcoin, Ethereum, Litecoin, Tether, Dogecoin, Solana, Bitcoin Cash, and Monero.
 * A widget and shortcode, so you can place a wallet in posts, pages, sidebars, or footers.
 * QR codes generated in the browser. No server side files, no uploads folder, and no third party services.
 * Adjustable QR size and full output escaping for safe, clean markup.
@@ -82,6 +84,12 @@ Yes. You can use the shortcode in a block, or add the Crypto QR Code WP widget t
 
 == Changelog ==
 
+= 1.2.0 =
+* New - Copy button so visitors can copy your wallet address in one click.
+* New - Coin presets and icons for Bitcoin, Ethereum, Litecoin, Tether, Dogecoin, Solana, Bitcoin Cash, and Monero.
+* New - Quick coin picker on the settings page that fills the label for you.
+* Tweak - Coin icon shown next to the label on the front end.
+
 = 1.1.0 =
 * New - QR codes are now generated entirely in the browser, so nothing is written to your server.
 * New - Settings page to manage your wallet addresses and copy ready made shortcodes.
@@ -103,6 +111,9 @@ Yes. You can use the shortcode in a block, or add the Crypto QR Code WP widget t
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+Adds a one click copy button and built in coin presets and icons. A safe, additive update.
 
 = 1.1.0 =
 Security and feature update: QR codes now render in the browser (no server files), full output escaping, and a new wallet settings page. Recommended for all users.

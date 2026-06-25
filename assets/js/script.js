@@ -47,6 +47,42 @@ jQuery( document ).ready( function ( $ ) {
 		}
 	} );
 
+	// Copy the wallet address to the clipboard.
+	$( document ).on( 'click', '.cqcw-block__copy', function () {
+		var $btn = $( this );
+		var address = $btn.attr( 'data-cqcw-copy' );
+		var $label = $btn.find( '.cqcw-copy-label' );
+
+		if ( ! address || $btn.hasClass( 'cqcw-copied' ) ) {
+			return;
+		}
+
+		function flash() {
+			var original = $label.text();
+			$label.text( $btn.attr( 'data-cqcw-copied' ) || 'Copied' );
+			$btn.addClass( 'cqcw-copied' );
+			window.setTimeout( function () {
+				$label.text( original );
+				$btn.removeClass( 'cqcw-copied' );
+			}, 1500 );
+		}
+
+		if ( navigator.clipboard && navigator.clipboard.writeText ) {
+			navigator.clipboard.writeText( address ).then( flash, flash );
+		} else {
+			var tmp = document.createElement( 'textarea' );
+			tmp.value = address;
+			tmp.setAttribute( 'readonly', '' );
+			tmp.style.position = 'absolute';
+			tmp.style.left = '-9999px';
+			document.body.appendChild( tmp );
+			tmp.select();
+			try { document.execCommand( 'copy' ); } catch ( e ) {}
+			document.body.removeChild( tmp );
+			flash();
+		}
+	} );
+
 	// Close button.
 	$( document ).on( 'click', '.cqcw-block__button-close', function () {
 		cqcwResetState();

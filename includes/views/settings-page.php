@@ -26,6 +26,14 @@ if( ! function_exists( 'cqcw_render_wallet_row' ) ) {
 		<tr class="cqcw-row">
 			<td data-label="<?php esc_attr_e( 'Label', 'crypto-qr-code-wp' ); ?>">
 				<input type="text" class="cqcw-field cqcw-field-label" name="<?php echo esc_attr( $base . '[label]' ); ?>" value="<?php echo esc_attr( $label ); ?>" placeholder="<?php esc_attr_e( 'BTC', 'crypto-qr-code-wp' ); ?>" />
+				<?php if( function_exists( 'cqcw_get_coins' ) ) : ?>
+				<select class="cqcw-coin-pick" aria-label="<?php esc_attr_e( 'Pick a common coin', 'crypto-qr-code-wp' ); ?>">
+					<option value=""><?php esc_html_e( 'Pick a coin', 'crypto-qr-code-wp' ); ?></option>
+					<?php foreach( cqcw_get_coins() as $cqcw_ticker => $cqcw_coin ) : ?>
+						<option value="<?php echo esc_attr( $cqcw_ticker ); ?>"><?php echo esc_html( $cqcw_ticker . ' (' . $cqcw_coin['name'] . ')' ); ?></option>
+					<?php endforeach; ?>
+				</select>
+				<?php endif; ?>
 			</td>
 			<td data-label="<?php esc_attr_e( 'Wallet address', 'crypto-qr-code-wp' ); ?>">
 				<input type="text" class="cqcw-field cqcw-field-address" name="<?php echo esc_attr( $base . '[address]' ); ?>" value="<?php echo esc_attr( $address ); ?>" placeholder="<?php esc_attr_e( 'Public key address', 'crypto-qr-code-wp' ); ?>" />

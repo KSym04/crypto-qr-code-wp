@@ -58,6 +58,17 @@ jQuery( document ).ready( function ( $ ) {
 		refreshShortcode( $( this ).closest( '.cqcw-row' ) );
 	} );
 
+	// Coin quick-pick fills the label field.
+	$body.on( 'change', '.cqcw-coin-pick', function () {
+		var ticker = $( this ).val();
+		if ( ! ticker ) {
+			return;
+		}
+		var $row = $( this ).closest( '.cqcw-row' );
+		$row.find( '.cqcw-field-label' ).val( ticker ).trigger( 'input' );
+		$( this ).val( '' );
+	} );
+
 	// Copy a shortcode to the clipboard.
 	$body.on( 'click', '.cqcw-copy', function () {
 		var $btn = $( this );

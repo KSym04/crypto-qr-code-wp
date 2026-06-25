@@ -1,5 +1,11 @@
 *** Crypto QR Code WP Changelog ***
 
+2026.06.25 - version 1.2.0
+ * New - Copy button so visitors can copy your wallet address in one click
+ * New - Coin presets and icons for Bitcoin, Ethereum, Litecoin, Tether, Dogecoin, Solana, Bitcoin Cash, and Monero
+ * New - Quick coin picker on the settings page that fills the label for you
+ * Tweak - Coin icon shown next to the label on the front end
+
 2026.06.25 - version 1.1.0
  * New - QR codes are now generated entirely in the browser, so nothing is written to your server
  * New - Settings page to manage your wallet addresses and copy ready made shortcodes

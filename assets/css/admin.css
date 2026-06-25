@@ -110,6 +110,13 @@
 	width: 100%;
 }
 
+.cqcw-coin-pick {
+	margin-top: var(--cqcw-space-1);
+	max-width: 100%;
+	font-size: var(--cqcw-text-sm);
+	color: var(--cqcw-muted);
+}
+
 .cqcw-shortcode-cell {
 	white-space: nowrap;
 }
