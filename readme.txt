@@ -8,7 +8,7 @@ Stable tag: 1.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Accept Bitcoin and cryptocurrency donations with a click to reveal wallet QR code. Generated in the browser, with a settings page to manage your wallets.
+Accept Bitcoin and cryptocurrency donations with a click to reveal QR code, generated in the browser with a wallet settings page.
 
 == Description ==
 
