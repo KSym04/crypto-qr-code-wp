@@ -4,81 +4,89 @@ if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
 
 /**
  * Crypto QR Code WP main widget class.
- * 
+ *
  * @since  1.0.0
  */
 class Crypto_QR_Code_WP_Widget extends WP_Widget {
 
-    // Set up the widget name and description.
-    public function __construct() {
-        $widget_options = array( 
-            'classname' => 'cqcw-widget', 
-            'description' => esc_html__( 'Create element of cryptocurreny label, wallet address and QR code.', 'crypto-qr-code-wp' ) 
-        );
-    
-        parent::__construct( 'crypto_qr_code_wp_widget', 'Crpyto QR Code WP', $widget_options );
-    }
-  
-    // Create the widget output.
-    public function widget( $args, $instance ) {
-        $title = apply_filters( 'widget_title', $instance['title'] );
-        echo $args['before_widget'];
+	// Set up the widget name and description.
+	public function __construct() {
+		$widget_options = array(
+			'classname'   => 'cqcw-widget',
+			'description' => esc_html__( 'Show a cryptocurrency label, wallet address and click to reveal QR code.', 'crypto-qr-code-wp' ),
+		);
 
-        if ( ! empty( $title ) ) {
-            echo $args['before_title'] . $title . $args['after_title'];
-        }
+		parent::__construct( 'crypto_qr_code_wp_widget', esc_html__( 'Crypto QR Code WP', 'crypto-qr-code-wp' ), $widget_options );
+	}
 
-        echo do_shortcode( '[cqcw_generator heading="' . $instance['heading'] . '" label="' . $instance['label'] . '" address="' . $instance['address'] . '"]' );
-        echo $args['after_widget'];
-    }
-  
-    // Create the admin area widget settings form.
-    public function form( $instance ) {
-        global $wp_customize;
+	// Create the widget output.
+	public function widget( $args, $instance ) {
+		$title   = ! empty( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : '';
+		$heading = ! empty( $instance['heading'] ) ? $instance['heading'] : '';
+		$label   = ! empty( $instance['label'] ) ? $instance['label'] : '';
+		$address = ! empty( $instance['address'] ) ? $instance['address'] : '';
 
-        // widget title.
-        echo '<p>';
-            echo '<label for="' . $this->get_field_id( 'title' ) . '">' . esc_html__( 'Title:', 'crypto-qr-code-wp' ) . '</label><br />';
-            echo '<input type="text" id="' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" value="' . $instance['title'] . '" class="widefat">';
-        echo '</p>';
+		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Theme-provided markup.
 
-        // heading.
-        echo '<p>';
-            echo '<label for="' . $this->get_field_id( 'heading' ) . '">' . esc_html__( 'Tooltip Text Heading:', 'crypto-qr-code-wp' ) . '</label><br />';
-            echo '<input type="text" id="' . $this->get_field_id( 'heading' ) . '" name="' . $this->get_field_name( 'heading' ) . '" required placeholder="' . esc_html__( 'Donate', 'crypto-qr-code-wp' ) . '" value="' . $instance['heading'] . '" class="widefat">';
-        echo '</p>';
+		if( ! empty( $title ) ) {
+			echo $args['before_title'] . esc_html( $title ) . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Theme-provided wrappers.
+		}
 
-        // label.
-        echo '<p>';
-            echo '<label for="' . $this->get_field_id( 'label' ) . '">' . esc_html__( 'Crypto Label:', 'crypto-qr-code-wp' ) . '</label><br />';
-            echo '<input type="text" id="' . $this->get_field_id( 'label' ) . '" name="' . $this->get_field_name( 'label' ) . '" required placeholder="' . esc_html__( 'BTC', 'crypto-qr-code-wp' ) . '" value="' . $instance['label'] . '" class="widefat">';
-        echo '</p>';
+		// The shortcode escapes its own output.
+		echo do_shortcode( sprintf(
+			'[cqcw_generator heading="%1$s" label="%2$s" address="%3$s"]',
+			esc_attr( $heading ),
+			esc_attr( $label ),
+			esc_attr( $address )
+		) );
 
-        // address.
-        echo '<p>';
-            echo '<label for="' . $this->get_field_id( 'address' ) . '">' . esc_html__( 'Wallet Address:', 'crypto-qr-code-wp' ) . '</label><br />';
-            echo '<textarea id="' . $this->get_field_id( 'address' ) . '" name="' . $this->get_field_name( 'address' ) . '" rows="5" required placeholder="' . esc_html__( 'Insert wallet public key address', 'crypto-qr-code-wp' ) . '" class="widefat">' . $instance['address'] . '</textarea>';
-        echo '</p>';
-    }
-  
-    // Apply settings to the widget instance.
-    public function update( $new_instance, $old_instance ) {
-        $instance = $old_instance;
-        $instance['title']   = $new_instance['title'];
-        $instance['heading'] = $new_instance['heading'];
-        $instance['label']   = $new_instance['label'];
-        $instance['address'] = $new_instance['address'];
-        return $instance;
-    }
-  }
+		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Theme-provided markup.
+	}
+
+	// Create the admin area widget settings form.
+	public function form( $instance ) {
+		$title   = isset( $instance['title'] ) ? $instance['title'] : '';
+		$heading = isset( $instance['heading'] ) ? $instance['heading'] : '';
+		$label   = isset( $instance['label'] ) ? $instance['label'] : '';
+		$address = isset( $instance['address'] ) ? $instance['address'] : '';
+		?>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'crypto-qr-code-wp' ); ?></label>
+			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo esc_attr( $title ); ?>">
+		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'heading' ) ); ?>"><?php esc_html_e( 'Tooltip Text Heading:', 'crypto-qr-code-wp' ); ?></label>
+			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'heading' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'heading' ) ); ?>" placeholder="<?php esc_attr_e( 'Donate', 'crypto-qr-code-wp' ); ?>" value="<?php echo esc_attr( $heading ); ?>">
+		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'label' ) ); ?>"><?php esc_html_e( 'Crypto Label:', 'crypto-qr-code-wp' ); ?></label>
+			<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'label' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'label' ) ); ?>" placeholder="<?php esc_attr_e( 'BTC', 'crypto-qr-code-wp' ); ?>" value="<?php echo esc_attr( $label ); ?>">
+		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'address' ) ); ?>"><?php esc_html_e( 'Wallet Address:', 'crypto-qr-code-wp' ); ?></label>
+			<textarea class="widefat" rows="4" id="<?php echo esc_attr( $this->get_field_id( 'address' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'address' ) ); ?>" placeholder="<?php esc_attr_e( 'Insert wallet public key address', 'crypto-qr-code-wp' ); ?>"><?php echo esc_textarea( $address ); ?></textarea>
+		</p>
+		<?php
+	}
+
+	// Apply settings to the widget instance.
+	public function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$instance['title']   = isset( $new_instance['title'] ) ? sanitize_text_field( $new_instance['title'] ) : '';
+		$instance['heading'] = isset( $new_instance['heading'] ) ? sanitize_text_field( $new_instance['heading'] ) : '';
+		$instance['label']   = isset( $new_instance['label'] ) ? sanitize_text_field( $new_instance['label'] ) : '';
+		$instance['address'] = isset( $new_instance['address'] ) ? sanitize_text_field( $new_instance['address'] ) : '';
+		return $instance;
+	}
+}
 
 /**
  * Register Crypto QR Code WP widget.
- * 
+ *
  * @since 1.0.2
  * @package Crypto QR Code WP
  */
 function crypto_qr_code_wp_register_widget() {
-    register_widget( 'Crypto_QR_Code_WP_Widget' );
+	register_widget( 'Crypto_QR_Code_WP_Widget' );
 }
 add_action( 'widgets_init', 'crypto_qr_code_wp_register_widget' );

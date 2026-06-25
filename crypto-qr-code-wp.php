@@ -2,11 +2,13 @@
 /*
 Plugin Name: Crypto QR Code WP
 Plugin URI: https://www.dopethemes.com/downloads/crypto-qr-code-wp/
-Description: Add cryptocurrencies QR code donate with tooltip.
+Description: Display a cryptocurrency wallet address with a click to reveal QR code, generated entirely in the browser.
 Author: DopeThemes
 Author URI: https://www.dopethemes.com/
 Text Domain: crypto-qr-code-wp
-Version: 1.0.2
+Version: 1.1.0
+Requires at least: 4.7
+Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Domain Path: /lang
@@ -36,148 +38,102 @@ if( ! class_exists( 'crypto_qr_code_wp' ) ) :
 
 class crypto_qr_code_wp {
 
-	/*
-	*  __construct
-	*
-	*  A dummy constructor to ensure Crypto QR Code WP is only initialized once.
-	*
-	*  @type	function
-	*  @date	03/24/19
-	*  @since	1.0.0
-	*
-	*  @param	N/A
-	*  @return	N/A
-	*/
+	/**
+	 * Plugin settings (paths, urls, version).
+	 *
+	 * @var array
+	 */
+	public $settings = array();
+
+	/**
+	 * A dummy constructor to ensure Crypto QR Code WP is only initialized once.
+	 *
+	 * @since 1.0.0
+	 */
 	public function __construct() {
-        // Do nothing here.
+		// Do nothing here.
 	}
 
-	/*
-	*  initialize
-	*
-	*  The real constructor to initialize Crypto QR Code WP.
-	*
-	*  @type	function
-	*  @date	03/24/19
-	*  @since	1.0.0
-	*
-	*  @param	N/A
-	*  @return	N/A
-	*/
+	/**
+	 * The real constructor to initialize Crypto QR Code WP.
+	 *
+	 * @since 1.0.0
+	 */
 	public function initialize() {
 		// Parameters.
 		$this->settings = array(
-			'name'		 => esc_html__( 'Crypto QR Code WP', 'crypto-qr-code-wp' ),
-			'version'	 => '1.0.2',
-			'basename'	 => plugin_basename( __FILE__ ),
-			'path'	     => plugin_dir_path( __FILE__ ),
-			'dir'	     => plugin_dir_url( __FILE__ )
-        );
+			'name'     => esc_html__( 'Crypto QR Code WP', 'crypto-qr-code-wp' ),
+			'version'  => '1.1.0',
+			'basename' => plugin_basename( __FILE__ ),
+			'path'     => plugin_dir_path( __FILE__ ),
+			'dir'      => plugin_dir_url( __FILE__ ),
+		);
 
-        // Global Defines.
-        define( 'CRYPTO_QR_CODE_WP_UPLOAD', trailingslashit( WP_CONTENT_DIR ) . 'uploads/' );
-        define( 'CRYPTO_QR_CODE_WP_IMG_DIR', trailingslashit( WP_CONTENT_DIR ) . 'uploads/crypto-qr-codes/' );
-        define( 'CRYPTO_QR_CODE_WP_URL', trailingslashit( WP_CONTENT_URL ) );
+		// Front-end assets (registered here, enqueued only when a code is rendered).
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ) );
 
-        // Resources.
-        add_action( 'init',	array( $this, 'register_assets' ) );
-        add_action( 'admin_init', array( $this, 'create_file_resources' ) );
-        
-        // Libraries.
-        include( 'includes/helpers.php' );
-        include( 'includes/shortcode.php' );
-        include( 'includes/widgets.php' );
+		// Libraries (absolute paths so includes resolve in every SAPI, admin included).
+		$path = $this->settings['path'];
+		include_once $path . 'includes/helpers.php';
+		include_once $path . 'includes/shortcode.php';
+		include_once $path . 'includes/widgets.php';
 
-        // Vendor.
-        include( 'includes/vendor/phpqrcode/qrlib.php' );
-    }
-    
-	/*
-	*  register_assets
-	*
-	*  @type	function
-	*  @date	03/26/19
-	*  @since	1.0.0
-	*/
-	function register_assets() {
-        wp_register_script( 'crypto-qr-code-wp', plugin_dir_url( __FILE__ ) . 'assets/js/script.js', array( 'jquery' ), $this->settings['version'] );
-        wp_register_style( 'crypto-qr-code-wp', plugin_dir_url( __FILE__ ) . 'assets/css/style.css', array(), $this->settings['version'] );
+		// Admin settings page.
+		if( is_admin() ) {
+			include_once $path . 'includes/admin.php';
+			$admin = new Crypto_QR_Code_WP_Admin( $this->settings );
+			$admin->init();
+		}
+	}
 
-        // Call assets.
-        wp_enqueue_script( 'crypto-qr-code-wp' );
-        wp_enqueue_style( 'crypto-qr-code-wp' );
-    }
+	/**
+	 * Register front-end assets.
+	 *
+	 * The QR code is generated in the browser with the bundled qrcode.js library,
+	 * so there are no external requests and nothing is written to the server.
+	 *
+	 * @since 1.0.0
+	 */
+	public function register_assets() {
+		wp_register_script(
+			'cqcw-qrcode',
+			plugin_dir_url( __FILE__ ) . 'assets/js/qrcode.min.js',
+			array(),
+			'1.0.0',
+			true
+		);
 
-	/*
-	*  create_file_resources
-	*
-	*  @type	function
-	*  @date	03/26/19
-	*  @since	1.0.1
-	*/
-	function create_file_resources() {
-        // Check upload folder existence.
-        if( ! is_dir( CRYPTO_QR_CODE_WP_IMG_DIR ) && is_writable( CRYPTO_QR_CODE_WP_UPLOAD ) && current_user_can( 'manage_options' ) ) {
-            mkdir( CRYPTO_QR_CODE_WP_IMG_DIR , 0755 );
-        }
+		wp_register_script(
+			'crypto-qr-code-wp',
+			plugin_dir_url( __FILE__ ) . 'assets/js/script.js',
+			array( 'jquery', 'cqcw-qrcode' ),
+			$this->settings['version'],
+			true
+		);
 
-        // HTAccess rules and secure folder.
-        $htaccess_file = CRYPTO_QR_CODE_WP_IMG_DIR . '.htaccess';
-        if( ( ! file_exists( $htaccess_file ) && is_writable( CRYPTO_QR_CODE_WP_UPLOAD ) ) && current_user_can( 'manage_options' ) ) {
-            // Set htaccess rules.
-            $rules = NULL;
-            settype( $rules, 'string' );
-
-            $rules  = "Options -Indexes\n";
-            $rules .= "deny from all\n";
-            $rules .= "<FilesMatch '\.(svg)$'>\n";
-            $rules .= "Order Allow,Deny\n";
-            $rules .= "Allow from all\n";
-            $rules .= "</FilesMatch>";
-
-            $fp = fopen( $htaccess_file, "w" );
-            if ( ! $fp ) {
-                return false;
-            }
-
-            // File lock security.
-            flock( $fp, LOCK_EX );
-
-            // Start writing data.
-            fseek( $fp, 0 );
-            $data_bytes = fwrite( $fp, $rules );
-            if ( $data_bytes ) {
-                ftruncate( $fp, ftell( $fp ) );
-            }
-            fflush( $fp );
-            flock( $fp, LOCK_UN );
-            fclose( $fp );
-        }
-    }
+		wp_register_style(
+			'crypto-qr-code-wp',
+			plugin_dir_url( __FILE__ ) . 'assets/css/style.css',
+			array(),
+			$this->settings['version']
+		);
+	}
 }
 
-/*
-*  crypto_qr_code_wp
-*
-*  The main function responsible for returning the one true crypto_qr_code_wp Instance to functions everywhere.
-*  Use this function like you would a global variable, except without needing to declare the global.
-*
-*  Example: <?php $crypto_qr_code_wp = crypto_qr_code_wp(); ?>
-*
-*  @type	function
-*  @date	03/24/19
-*  @since	1.0.0
-*
-*  @param	N/A
-*  @return	(object)
-*/
+/**
+ * The main function responsible for returning the one true crypto_qr_code_wp instance.
+ *
+ * @since 1.0.0
+ *
+ * @return crypto_qr_code_wp
+ */
 function crypto_qr_code_wp() {
 	global $crypto_qr_code_wp;
-	if( ! isset($crypto_qr_code_wp) ) {
+	if( ! isset( $crypto_qr_code_wp ) ) {
 		$crypto_qr_code_wp = new crypto_qr_code_wp();
 		$crypto_qr_code_wp->initialize();
-    }
-    
+	}
+
 	return $crypto_qr_code_wp;
 }
 

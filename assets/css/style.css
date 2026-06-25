@@ -37,8 +37,20 @@
     box-shadow: 3px 3px 3px rgba( 0, 0, 0, 0.05 );
 }
 
-.cqcw-init .cqcw-block__dialog img {
-	width: 100%;
+.cqcw-init .cqcw-block__qr {
+	box-sizing: border-box;
+	display: block;
+	padding: 15px;
+	text-align: center;
+	line-height: 0;
+}
+
+.cqcw-init .cqcw-block__qr canvas,
+.cqcw-init .cqcw-block__qr img,
+.cqcw-init .cqcw-block__qr svg {
+	display: inline-block;
+	max-width: 100%;
+	height: auto;
 }
 
 .cqcw-init .cqcw-block__dialog-heading {

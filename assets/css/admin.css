@@ -1,0 +1,183 @@
+/**
+ * Crypto QR Code WP admin styles.
+ *
+ * Single design-token layer scoped to .cqcw-wrap so nothing leaks into wp-admin.
+ * No external or CDN assets.
+ */
+.cqcw-wrap {
+	/* Neutrals + accent */
+	--cqcw-ink: #1d2327;
+	--cqcw-muted: #50575e;
+	--cqcw-faint: #787c82;
+	--cqcw-line: #c3c4c7;
+	--cqcw-line-soft: #e3e4e6;
+	--cqcw-surface: #fff;
+	--cqcw-surface-2: #f6f7f7;
+	--cqcw-accent: #2271b1;
+	--cqcw-accent-strong: #135e96;
+	--cqcw-success: #0a6b27;
+
+	/* Type */
+	--cqcw-text-sm: 12px;
+	--cqcw-text-base: 13px;
+	--cqcw-text-md: 14px;
+	--cqcw-text-lg: 16px;
+
+	/* Spacing (4px base) */
+	--cqcw-space-1: 4px;
+	--cqcw-space-2: 8px;
+	--cqcw-space-3: 12px;
+	--cqcw-space-4: 16px;
+	--cqcw-space-5: 20px;
+	--cqcw-space-6: 24px;
+
+	/* Radius / focus / motion */
+	--cqcw-radius: 4px;
+	--cqcw-radius-lg: 8px;
+	--cqcw-focus: #2271b1;
+	--cqcw-transition: .15s ease;
+
+	max-width: 1100px;
+}
+
+/* Page chrome */
+.cqcw-page-title {
+	display: flex;
+	align-items: center;
+	gap: var(--cqcw-space-3);
+	margin-bottom: var(--cqcw-space-2);
+}
+
+.cqcw-page-icon {
+	color: var(--cqcw-accent);
+	font-size: 28px;
+	width: 28px;
+	height: 28px;
+}
+
+.cqcw-wordmark {
+	font-weight: 700;
+	color: var(--cqcw-ink);
+}
+
+.cqcw-page-subtitle {
+	font-weight: 400;
+	font-size: var(--cqcw-text-lg);
+	color: var(--cqcw-muted);
+}
+
+.cqcw-intro {
+	max-width: 760px;
+	color: var(--cqcw-muted);
+	font-size: var(--cqcw-text-md);
+}
+
+/* Sections / cards */
+.cqcw-settings-section {
+	background: var(--cqcw-surface);
+	border: 1px solid var(--cqcw-line);
+	border-radius: var(--cqcw-radius);
+	padding: var(--cqcw-space-5) var(--cqcw-space-6);
+	margin: var(--cqcw-space-6) 0;
+}
+
+.cqcw-settings-section h2 {
+	margin-top: 0;
+	font-size: var(--cqcw-text-lg);
+	font-weight: 600;
+	border-bottom: 1px solid var(--cqcw-line-soft);
+	padding-bottom: var(--cqcw-space-3);
+	margin-bottom: var(--cqcw-space-4);
+}
+
+/* Wallets table */
+.cqcw-wallets {
+	border-collapse: collapse;
+}
+
+.cqcw-wallets th {
+	font-size: var(--cqcw-text-sm);
+	text-transform: uppercase;
+	letter-spacing: .03em;
+	color: var(--cqcw-faint);
+}
+
+.cqcw-wallets td {
+	vertical-align: middle;
+}
+
+.cqcw-field {
+	width: 100%;
+}
+
+.cqcw-shortcode-cell {
+	white-space: nowrap;
+}
+
+.cqcw-shortcode {
+	width: 230px;
+	max-width: 100%;
+	background: var(--cqcw-surface-2);
+	font-size: var(--cqcw-text-sm);
+	color: var(--cqcw-muted);
+}
+
+.cqcw-copy {
+	vertical-align: middle;
+	margin-left: var(--cqcw-space-1);
+	padding: 0 var(--cqcw-space-2);
+}
+
+.cqcw-copy .dashicons {
+	margin-top: 4px;
+}
+
+.cqcw-copy.cqcw-copied {
+	color: var(--cqcw-success);
+	border-color: var(--cqcw-success);
+}
+
+.cqcw-remove-cell {
+	width: 40px;
+	text-align: center;
+}
+
+.cqcw-remove {
+	color: var(--cqcw-faint);
+	transition: color var(--cqcw-transition);
+}
+
+.cqcw-remove:hover,
+.cqcw-remove:focus {
+	color: #b32d2e;
+}
+
+.cqcw-field-suffix {
+	color: var(--cqcw-faint);
+	margin-left: var(--cqcw-space-1);
+}
+
+/* Help */
+.cqcw-help ol {
+	margin-left: var(--cqcw-space-5);
+}
+
+.cqcw-help .description {
+	max-width: 760px;
+}
+
+/* Add wallet button icon alignment */
+.cqcw-add-wallet .dashicons,
+.cqcw-page-subtitle .dashicons {
+	vertical-align: text-bottom;
+}
+
+/* Single focus rule on interactive controls */
+.cqcw-wrap a:focus-visible,
+.cqcw-wrap button:focus-visible,
+.cqcw-wrap input:focus-visible,
+.cqcw-wrap select:focus-visible {
+	outline: 2px solid var(--cqcw-focus);
+	outline-offset: 1px;
+	box-shadow: 0 0 0 1px var(--cqcw-focus);
+}

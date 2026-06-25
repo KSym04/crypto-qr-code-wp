@@ -1,5 +1,14 @@
 *** Crypto QR Code WP Changelog ***
 
+2026.06.25 - version 1.1.0
+ * New - QR codes are now generated entirely in the browser, so nothing is written to your server
+ * New - Settings page to manage your wallet addresses and copy ready made shortcodes
+ * Security - Full output escaping across the shortcode and widget (resolves stored cross site scripting risk)
+ * Security - Removed the bundled phpqrcode library and the server side file generation it required
+ * Tweak - Assets now load only on pages that actually use the QR code
+ * Tweak - Confirmed compatibility with WordPress 7.0 and PHP 8
+ * Fix - Corrected the widget display name and sanitized all saved widget fields
+
 2019.03.27 - version 1.0.2
  * Fix - Widget issue
  * Tweak - Improved CSS theme compatibility
