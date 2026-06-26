@@ -66,3 +66,4 @@ Makefile
 
 # Screenshots are uploaded to the SVN assets/ directory, not shipped in the plugin zip
 screenshots/
+SPEC.md

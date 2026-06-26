@@ -94,8 +94,37 @@ class Crypto_QR_Code_WP_Admin {
 	 */
 	public function defaults() {
 		return array(
-			'wallets' => array(),
-			'qr_size' => '180',
+			'wallets'     => array(),
+			'qr_size'     => '180',
+			'qr_fg'       => '#000000',
+			'qr_bg'       => '#ffffff',
+			'tip_bg'      => '#ffffff',
+			'tip_border'  => '#e5e5e5',
+			'tip_heading' => '#686868',
+			'addr_bg'     => '#e5e5e5',
+			'addr_text'   => '#444444',
+			'copy_bg'     => '#f3f3f3',
+			'copy_text'   => '#444444',
+		);
+	}
+
+	/**
+	 * Appearance keys and their default colors. Used by the sanitizer, the
+	 * settings template, and the front-end CSS variable builder.
+	 *
+	 * @return array Map of option key => default hex color.
+	 */
+	public static function color_keys() {
+		return array(
+			'qr_fg'       => '#000000',
+			'qr_bg'       => '#ffffff',
+			'tip_bg'      => '#ffffff',
+			'tip_border'  => '#e5e5e5',
+			'tip_heading' => '#686868',
+			'addr_bg'     => '#e5e5e5',
+			'addr_text'   => '#444444',
+			'copy_bg'     => '#f3f3f3',
+			'copy_text'   => '#444444',
 		);
 	}
 
@@ -151,6 +180,13 @@ class Crypto_QR_Code_WP_Admin {
 		$size = isset( $input['qr_size'] ) ? absint( $input['qr_size'] ) : 180;
 		$out['qr_size'] = ( $size >= 80 && $size <= 400 ) ? (string) $size : '180';
 
+		// Appearance colors. sanitize_hex_color() returns null on bad input, so
+		// fall back to the documented default for that key.
+		foreach( self::color_keys() as $key => $default ) {
+			$color = isset( $input[ $key ] ) ? sanitize_hex_color( $input[ $key ] ) : '';
+			$out[ $key ] = ( $color ) ? $color : $default;
+		}
+
 		return $out;
 	}
 
@@ -185,6 +221,31 @@ class Crypto_QR_Code_WP_Admin {
 			'confirmRemove' => esc_html__( 'Remove this wallet?', 'crypto-qr-code-wp' ),
 			'defaultHeading' => esc_html__( 'Donate', 'crypto-qr-code-wp' ),
 		) );
+
+		// Front-end stylesheet + the QR library so the Appearance tab can show a
+		// real, live preview of exactly what visitors will see.
+		wp_enqueue_style(
+			'crypto-qr-code-wp',
+			$this->settings['dir'] . 'assets/css/style.css',
+			array(),
+			$this->settings['version']
+		);
+
+		wp_enqueue_script(
+			'cqcw-qrcode',
+			$this->settings['dir'] . 'assets/js/qrcode.min.js',
+			array(),
+			'1.0.0',
+			true
+		);
+
+		wp_enqueue_script(
+			'crypto-qr-code-wp-preview',
+			$this->settings['dir'] . 'assets/js/preview.js',
+			array( 'jquery', 'cqcw-qrcode' ),
+			$this->settings['version'],
+			true
+		);
 	}
 
 	/**
@@ -195,9 +256,10 @@ class Crypto_QR_Code_WP_Admin {
 			return;
 		}
 
-		$current  = $this->get_all();
-		$wallets  = ! empty( $current['wallets'] ) ? $current['wallets'] : array();
-		$qr_size  = $current['qr_size'];
+		$current    = $this->get_all();
+		$wallets    = ! empty( $current['wallets'] ) ? $current['wallets'] : array();
+		$qr_size    = $current['qr_size'];
+		$appearance = $current; // Full settings array; the template reads color keys.
 
 		include $this->settings['path'] . 'includes/views/settings-page.php';
 	}

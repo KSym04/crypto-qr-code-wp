@@ -15,12 +15,14 @@ jQuery( document ).ready( function ( $ ) {
 				return;
 			}
 			var size = parseInt( $( this ).attr( 'data-cqcw-size' ), 10 ) || 180;
+			var fg = $( this ).attr( 'data-cqcw-fg' ) || '#000000';
+			var bg = $( this ).attr( 'data-cqcw-bg' ) || '#ffffff';
 			new QRCode( this, {
 				text: String( address ),
 				width: size,
 				height: size,
-				colorDark: '#000000',
-				colorLight: '#ffffff',
+				colorDark: fg,
+				colorLight: bg,
 				correctLevel: QRCode.CorrectLevel.M
 			} );
 		} );

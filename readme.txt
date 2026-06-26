@@ -4,7 +4,7 @@ Tags: bitcoin, cryptocurrency, qr code, bitcoin donation, crypto donation
 Requires at least: 4.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,7 +30,8 @@ Save your wallets once on the settings page and reuse them anywhere with a short
 * Built in coin presets and icons for Bitcoin, Ethereum, Litecoin, Tether, Dogecoin, Solana, Bitcoin Cash, and Monero.
 * A widget and shortcode, so you can place a wallet in posts, pages, sidebars, or footers.
 * QR codes generated in the browser. No server side files, no uploads folder, and no third party services.
-* Adjustable QR size and full output escaping for safe, clean markup.
+* An Appearance tab with a live preview, so you can set the QR size, the QR colors, and the tooltip colors and see the result as you design.
+* Works with any theme, including block and Full Site Editing themes.
 
 = How it works =
 
@@ -84,6 +85,15 @@ Yes. You can use the shortcode in a block, or add the Crypto QR Code WP widget t
 
 == Changelog ==
 
+= 1.3.0 =
+* New - Appearance tab with a live preview so you can design the tooltip, including the QR colors, tooltip, address bar, and copy button.
+* New - Choose your own QR code foreground and background colors.
+* Tweak - The settings screen is now split into Settings and Appearance tabs.
+* Tweak - Added a link to more DopeThemes resources on the settings screen.
+* Fix - The donation widget now keeps its own styling on every theme, including block and Full Site Editing themes that do not add a body class.
+* Fix - Theme button and link styles can no longer override the tooltip, copy button, or close button.
+* Fix - QR code is now reliably centered in the tooltip.
+
 = 1.2.0 =
 * New - Copy button so visitors can copy your wallet address in one click.
 * New - Coin presets and icons for Bitcoin, Ethereum, Litecoin, Tether, Dogecoin, Solana, Bitcoin Cash, and Monero.
@@ -111,6 +121,9 @@ Yes. You can use the shortcode in a block, or add the Crypto QR Code WP widget t
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+New Appearance tab with a live preview and custom colors, plus a styling fix so the widget looks right on every theme. Recommended for all users.
 
 = 1.2.0 =
 Adds a one click copy button and built in coin presets and icons. A safe, additive update.

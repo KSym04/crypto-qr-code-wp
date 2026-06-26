@@ -44,6 +44,12 @@ function crypto_qr_code_wp_shortcode_logic( $atts ) {
 		$qr_size = 180;
 	}
 
+	// QR foreground/background colors (Appearance tab). Validate at output time.
+	$qr_fg = isset( $options['qr_fg'] ) ? sanitize_hex_color( $options['qr_fg'] ) : '';
+	$qr_bg = isset( $options['qr_bg'] ) ? sanitize_hex_color( $options['qr_bg'] ) : '';
+	$qr_fg = $qr_fg ? $qr_fg : '#000000';
+	$qr_bg = $qr_bg ? $qr_bg : '#ffffff';
+
 	// Unique dialog id per instance (compatible back to WordPress 4.7).
 	static $cqcw_instance = 0;
 	$cqcw_instance++;
@@ -62,7 +68,7 @@ function crypto_qr_code_wp_shortcode_logic( $atts ) {
 			. '<a href="#%3$s" class="cqcw-block__button" aria-haspopup="true">%2$s</a>'
 			. '<em id="%3$s" class="cqcw-block__dialog">'
 				. '<strong class="cqcw-block__dialog-heading">%4$s %1$s</strong>'
-				. '<span class="cqcw-block__qr" data-cqcw-address="%5$s" data-cqcw-size="%8$s" role="img" aria-label="%6$s"></span>'
+				. '<span class="cqcw-block__qr" data-cqcw-address="%5$s" data-cqcw-size="%8$s" data-cqcw-fg="%12$s" data-cqcw-bg="%13$s" role="img" aria-label="%6$s"></span>'
 				. '<strong class="cqcw-block__dialog-content">%2$s</strong>'
 				. '<button type="button" class="cqcw-block__copy" data-cqcw-copy="%5$s" data-cqcw-copied="%11$s">'
 					. '<svg class="cqcw-copy-icon" viewBox="0 0 20 20" width="13" height="13" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13 2H6a2 2 0 0 0-2 2v9h2V4h7V2zm3 4H9a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm0 11H9V8h7v9z"></path></svg>'
@@ -81,7 +87,9 @@ function crypto_qr_code_wp_shortcode_logic( $atts ) {
 		esc_attr( $qr_size ),
 		$coin_icon,
 		esc_html__( 'Copy', 'crypto-qr-code-wp' ),
-		esc_attr__( 'Copied', 'crypto-qr-code-wp' )
+		esc_attr__( 'Copied', 'crypto-qr-code-wp' ),
+		esc_attr( $qr_fg ),
+		esc_attr( $qr_bg )
 	);
 
 	return apply_filters( 'crypto_qr_code_wp_shortcode', $content, $a );

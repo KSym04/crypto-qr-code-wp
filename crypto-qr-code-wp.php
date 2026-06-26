@@ -6,7 +6,7 @@ Description: Display a cryptocurrency wallet address with a click to reveal QR c
 Author: DopeThemes
 Author URI: https://www.dopethemes.com/
 Text Domain: crypto-qr-code-wp
-Version: 1.2.0
+Version: 1.3.0
 Requires at least: 4.7
 Requires PHP: 7.4
 License: GPLv3
@@ -63,7 +63,7 @@ class crypto_qr_code_wp {
 		// Parameters.
 		$this->settings = array(
 			'name'     => esc_html__( 'Crypto QR Code WP', 'crypto-qr-code-wp' ),
-			'version'  => '1.2.0',
+			'version'  => '1.3.0',
 			'basename' => plugin_basename( __FILE__ ),
 			'path'     => plugin_dir_path( __FILE__ ),
 			'dir'      => plugin_dir_url( __FILE__ ),
@@ -118,6 +118,55 @@ class crypto_qr_code_wp {
 			array(),
 			$this->settings['version']
 		);
+
+		// Appearance: override the widget's CSS variables from the saved colors.
+		// Attached to the registered handle, so it only prints when a shortcode
+		// actually enqueues the stylesheet.
+		$css = $this->appearance_css();
+		if( '' !== $css ) {
+			wp_add_inline_style( 'crypto-qr-code-wp', $css );
+		}
+	}
+
+	/**
+	 * Build the front-end CSS-variable overrides from the saved appearance colors.
+	 *
+	 * Each value is run through sanitize_hex_color() again at output time as a
+	 * defense-in-depth measure, even though it was sanitized on save.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @return string CSS rule, or an empty string when nothing differs.
+	 */
+	public function appearance_css() {
+		$o = get_option( 'cqcw_settings', array() );
+		if( ! is_array( $o ) ) {
+			return '';
+		}
+
+		// option key => CSS custom property.
+		$map = array(
+			'tip_bg'      => '--cqcw-bg',
+			'tip_border'  => '--cqcw-border',
+			'tip_heading' => '--cqcw-heading',
+			'addr_bg'     => '--cqcw-addr-bg',
+			'addr_text'   => '--cqcw-text',
+			'copy_bg'     => '--cqcw-copy-bg',
+			'copy_text'   => '--cqcw-copy-text',
+		);
+
+		$decls = '';
+		foreach( $map as $key => $var ) {
+			if( empty( $o[ $key ] ) ) {
+				continue;
+			}
+			$color = sanitize_hex_color( $o[ $key ] );
+			if( $color ) {
+				$decls .= $var . ':' . $color . ';';
+			}
+		}
+
+		return ( '' === $decls ) ? '' : '.cqcw-block{' . $decls . '}';
 	}
 }
 

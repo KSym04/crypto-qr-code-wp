@@ -11,6 +11,42 @@ jQuery( document ).ready( function ( $ ) {
 	var $body = $( '.cqcw-wallets-body' );
 	var $counter = $( '.cqcw-next-index' );
 
+	// Settings / Appearance tab switching.
+	function rememberTab( name ) {
+		try { window.sessionStorage.setItem( 'cqcwActiveTab', name ); } catch ( e ) {}
+	}
+
+	function recallTab() {
+		try { return window.sessionStorage.getItem( 'cqcwActiveTab' ); } catch ( e ) { return null; }
+	}
+
+	function showTab( name ) {
+		$( '.cqcw-tabs .nav-tab' ).each( function () {
+			var active = $( this ).attr( 'data-cqcw-tab' ) === name;
+			$( this ).toggleClass( 'nav-tab-active', active ).attr( 'aria-selected', active ? 'true' : 'false' );
+		} );
+		$( '.cqcw-tab-panel' ).each( function () {
+			$( this ).prop( 'hidden', $( this ).attr( 'data-cqcw-panel' ) !== name );
+		} );
+	}
+
+	$( '.cqcw-tabs .nav-tab' ).on( 'click', function ( e ) {
+		e.preventDefault();
+		var name = $( this ).attr( 'data-cqcw-tab' );
+		showTab( name );
+		rememberTab( name );
+		if ( window.history && window.history.replaceState ) {
+			window.history.replaceState( null, '', $( this ).attr( 'href' ) );
+		}
+	} );
+
+	// On load, restore the tab from the URL hash, otherwise from the last one
+	// used. This keeps you on the Appearance tab after a save reload.
+	var initialTab = window.location.hash.replace( '#', '' ) || recallTab();
+	if ( 'appearance' === initialTab ) {
+		showTab( 'appearance' );
+	}
+
 	function nextIndex() {
 		var n = parseInt( $counter.attr( 'data-next' ), 10 ) || 0;
 		$counter.attr( 'data-next', n + 1 );

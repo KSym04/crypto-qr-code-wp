@@ -179,6 +179,189 @@
 	vertical-align: text-bottom;
 }
 
+/* Two-column layout: main content + right aside. */
+.cqcw-layout {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--cqcw-space-6);
+	align-items: flex-start;
+	margin-top: var(--cqcw-space-4);
+}
+
+.cqcw-main {
+	flex: 1 1 640px;
+	min-width: 0;
+}
+
+.cqcw-aside {
+	flex: 0 1 280px;
+}
+
+.cqcw-box {
+	background: var(--cqcw-surface);
+	border: 1px solid var(--cqcw-line);
+	border-radius: var(--cqcw-radius);
+	padding: var(--cqcw-space-4) var(--cqcw-space-5);
+	margin-bottom: var(--cqcw-space-4);
+}
+
+.cqcw-box h2 {
+	margin-top: 0;
+	font-size: var(--cqcw-text-md);
+	font-weight: 600;
+	color: var(--cqcw-ink);
+}
+
+.cqcw-box p {
+	color: var(--cqcw-muted);
+	font-size: var(--cqcw-text-base);
+	margin-top: 0;
+}
+
+/* More from DopeThemes (lowkey author link) */
+.cqcw-more {
+	background: var(--cqcw-surface-2);
+}
+
+.cqcw-more .button .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	vertical-align: text-bottom;
+	margin-left: var(--cqcw-space-1);
+}
+
+/* Tabs */
+.cqcw-tabs {
+	margin-bottom: 0;
+}
+
+.cqcw-tab-panel[hidden] {
+	display: none;
+}
+
+/* Appearance: controls + live preview side by side. */
+.cqcw-appearance {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--cqcw-space-6);
+	align-items: flex-start;
+	margin-top: var(--cqcw-space-5);
+}
+
+.cqcw-appearance__controls {
+	flex: 1 1 360px;
+	min-width: 300px;
+}
+
+.cqcw-appearance__preview {
+	flex: 0 1 320px;
+	position: sticky;
+	top: var(--cqcw-space-6);
+}
+
+.cqcw-control-group {
+	background: var(--cqcw-surface);
+	border: 1px solid var(--cqcw-line);
+	border-radius: var(--cqcw-radius);
+	padding: var(--cqcw-space-4) var(--cqcw-space-5);
+	margin-bottom: var(--cqcw-space-4);
+}
+
+.cqcw-control-group h3 {
+	margin: 0 0 var(--cqcw-space-3);
+	font-size: var(--cqcw-text-sm);
+	text-transform: uppercase;
+	letter-spacing: .03em;
+	color: var(--cqcw-faint);
+}
+
+.cqcw-control {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--cqcw-space-3);
+	margin: 0 0 var(--cqcw-space-2);
+}
+
+.cqcw-control:last-child {
+	margin-bottom: 0;
+}
+
+.cqcw-control label {
+	color: var(--cqcw-ink);
+	font-size: var(--cqcw-text-base);
+}
+
+.cqcw-control__field {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--cqcw-space-2);
+}
+
+.cqcw-color {
+	width: 40px;
+	height: 28px;
+	padding: 2px;
+	border: 1px solid var(--cqcw-line);
+	border-radius: var(--cqcw-radius);
+	background: var(--cqcw-surface);
+	cursor: pointer;
+}
+
+.cqcw-color-value {
+	font-size: var(--cqcw-text-sm);
+	color: var(--cqcw-faint);
+	background: var(--cqcw-surface-2);
+	padding: 2px var(--cqcw-space-1);
+	border-radius: var(--cqcw-radius);
+	min-width: 64px;
+	text-align: center;
+}
+
+.cqcw-reset-appearance .dashicons {
+	vertical-align: text-bottom;
+}
+
+/* Preview stage */
+.cqcw-preview-title {
+	margin: 0 0 var(--cqcw-space-3);
+	font-size: var(--cqcw-text-md);
+	color: var(--cqcw-ink);
+}
+
+.cqcw-preview-stage {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	padding: var(--cqcw-space-6);
+	background: var(--cqcw-surface-2);
+	border: 1px dashed var(--cqcw-line);
+	border-radius: var(--cqcw-radius-lg);
+}
+
+/*
+ * Neutralize the front-end widget's absolute positioning inside the static
+ * preview stage. The .cqcw-wrap prefix raises specificity above the front-end
+ * stylesheet (.cqcw-block .cqcw-block__dialog), which loads after this file.
+ */
+.cqcw-wrap .cqcw-preview-stage .cqcw-preview-block {
+	position: static;
+	display: inline-block;
+}
+
+.cqcw-wrap .cqcw-preview-stage .cqcw-block__dialog {
+	position: static;
+	display: block;
+	margin: 0;
+	bottom: auto;
+	right: auto;
+}
+
+.cqcw-wrap .cqcw-preview-stage .cqcw-block__button-close {
+	display: none;
+}
+
 /* Single focus rule on interactive controls */
 .cqcw-wrap a:focus-visible,
 .cqcw-wrap button:focus-visible,

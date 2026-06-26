@@ -1,138 +1,225 @@
-.cqcw-init .cqcw-block {
-	display: inline-block;
+/**
+ * Crypto QR Code WP front-end styles.
+ *
+ * Self-scoped to the .cqcw-block wrapper so the styling works on every theme,
+ * including block / Full Site Editing themes that do not emit body_class().
+ * Interactive elements are element-qualified (a.*, button.*) and reset their
+ * inherited and themed properties so a theme's link or button styles cannot
+ * bleed into the donation widget.
+ */
+
+.cqcw-block {
+	/* Design tokens (encapsulated to this widget). */
+	--cqcw-bg: #ffffff;
+	--cqcw-border: #e5e5e5;
+	--cqcw-heading: #686868;
+	--cqcw-text: #444444;
+	--cqcw-addr-bg: #e5e5e5;
+	--cqcw-copy-bg: #f3f3f3;
+	--cqcw-copy-bg-hover: #e9e9e9;
+	--cqcw-copy-border: #d5d5d5;
+	--cqcw-copy-text: #444444;
+	--cqcw-copied: #0a6b27;
+	--cqcw-close-bg: #777777;
+	--cqcw-radius: 3px;
+	--cqcw-width: 230px;
+	--cqcw-pad: 15px;
+
 	position: relative;
+	display: inline-block;
+	font-family: inherit;
+	line-height: 1.4;
 	word-break: break-all;
 }
 
-.cqcw-init .cqcw-block__button,
-.cqcw-init .cqcw-block__button:hover,
-.cqcw-init .cqcw-block__button:focus {
-    outline: none;
+/* Label + inline coin badge. */
+.cqcw-block .cqcw-block__label {
+	font-weight: 600;
+	font-style: normal;
 }
 
-.cqcw-init .cqcw-block__button {
-    word-wrap: unset;
-}
-
-.cqcw-init .cqcw-block__label {
-    font-weight: 600;
-}
-
-.cqcw-init .cqcw-block__dialog.active {
-    display: block;
-}
-
-.cqcw-init .cqcw-block__dialog {
-	box-sizing: border-box;
-    display: none;
-    position: absolute;
-    bottom: 120%;
-    right: 0;
-    width: 230px;
-    max-width: 230px;
-    background-color: #ffffff;
-    margin: 0 0 0 1em;
-    padding: 0;
-    border: 1px solid #e5e5e5;
-    box-shadow: 3px 3px 3px rgba( 0, 0, 0, 0.05 );
-}
-
-.cqcw-init .cqcw-block__qr {
-	box-sizing: border-box;
-	display: block;
-	padding: 15px;
-	text-align: center;
-	line-height: 0;
-}
-
-.cqcw-init .cqcw-block__qr canvas,
-.cqcw-init .cqcw-block__qr img,
-.cqcw-init .cqcw-block__qr svg {
-	display: inline-block;
-	max-width: 100%;
-	height: auto;
-}
-
-.cqcw-init .cqcw-block__dialog-heading {
-	box-sizing: border-box;
-    display: block;
-    padding: 20px 15px 0;
-    line-height: 1.2;
-    color: #686868;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-.cqcw-init .cqcw-block__dialog-content {
-	box-sizing: border-box;
-    display: block;
-    width: 100%;
-    background-color: #e5e5e5;
-    margin: 0;
-    padding: 10px 10px;
-    line-height: 1.4;
-    color: #444444;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    text-align: center;
-    word-wrap: break-word;
-}
-
-.cqcw-init .cqcw-block__button-close,
-.cqcw-init .cqcw-block__button-close:hover {
-	box-sizing: border-box;
-	outline: none;
-	position: absolute;
-	top: -1px;
-	right: -1px;
-	width: 18px;
-	height: 18px;
-	padding: 0;
-	margin: 0;
-	font-size: 8px;
-	color: #ffffff;
-	border-radius: 0;
-	border: none;
-	background-color: #777;
-}
-
-.cqcw-init .cqcw-block__label .cqcw-coin-icon {
+.cqcw-block .cqcw-coin-icon {
 	vertical-align: middle;
 	margin-right: 4px;
 }
 
-.cqcw-init .cqcw-block__copy {
-	box-sizing: border-box;
-	display: flex;
-	align-items: center;
-	gap: 5px;
-	width: -moz-fit-content;
-	width: fit-content;
-	margin: 8px auto 12px;
-	padding: 5px 10px;
-	font-size: 12px;
-	line-height: 1;
-	color: #444444;
-	background-color: #f3f3f3;
-	border: 1px solid #d5d5d5;
-	border-radius: 3px;
+/* Trigger link: strip the theme's link colour, underline and background. */
+.cqcw-block a.cqcw-block__button,
+.cqcw-block a.cqcw-block__button:link,
+.cqcw-block a.cqcw-block__button:visited,
+.cqcw-block a.cqcw-block__button:hover,
+.cqcw-block a.cqcw-block__button:focus,
+.cqcw-block a.cqcw-block__button:active {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	color: inherit;
+	background: none;
+	border: none;
+	box-shadow: none;
+	text-decoration: underline;
 	cursor: pointer;
+	outline: none;
+	word-wrap: break-word;
 }
 
-.cqcw-init .cqcw-block__copy:hover {
-	background-color: #e9e9e9;
+/* Dialog: a styled popover, hidden until opened. <em> would inherit italic. */
+.cqcw-block .cqcw-block__dialog {
+	box-sizing: border-box;
+	display: none;
+	position: absolute;
+	bottom: 120%;
+	right: 0;
+	z-index: 9999;
+	width: var(--cqcw-width);
+	max-width: var(--cqcw-width);
+	margin: 0;
+	padding: 0;
+	background-color: var(--cqcw-bg);
+	border: 1px solid var(--cqcw-border);
+	box-shadow: 0 3px 12px rgba( 0, 0, 0, 0.12 );
+	font-style: normal;
+	text-align: center;
 }
 
-.cqcw-init .cqcw-block__copy.cqcw-copied {
-	color: #0a6b27;
-	border-color: #0a6b27;
+.cqcw-block .cqcw-block__dialog.active {
+	display: block;
 }
 
-.cqcw-init .cqcw-copy-icon {
+.cqcw-block .cqcw-block__dialog-heading {
+	box-sizing: border-box;
+	display: block;
+	margin: 0;
+	padding: 20px 15px 0;
+	color: var(--cqcw-heading);
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: normal;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+/* QR wrapper. font-size:0 removes inline-node whitespace so the QR centres. */
+.cqcw-block .cqcw-block__qr {
+	box-sizing: border-box;
+	display: block;
+	margin: 0;
+	padding: var(--cqcw-pad);
+	font-size: 0;
+	line-height: 0;
+	text-align: center;
+}
+
+.cqcw-block .cqcw-block__qr canvas,
+.cqcw-block .cqcw-block__qr img,
+.cqcw-block .cqcw-block__qr svg {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin: 0 auto;
+	border: 0;
+	background: none;
+	box-shadow: none;
+}
+
+.cqcw-block .cqcw-block__dialog-content {
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
+	margin: 0;
+	padding: 10px;
+	background-color: var(--cqcw-addr-bg);
+	color: var(--cqcw-text);
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.4;
+	text-align: center;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+/*
+ * Copy button. Themes style every <button> with high-specificity selectors, so
+ * the visual reset uses !important to keep the widget theme-proof. This is a
+ * deliberate, self-contained isolation reset, not layout convenience.
+ */
+.cqcw-block button.cqcw-block__copy,
+.cqcw-block button.cqcw-block__copy:hover,
+.cqcw-block button.cqcw-block__copy:focus,
+.cqcw-block button.cqcw-block__copy:active {
+	box-sizing: border-box !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 5px !important;
+	width: -moz-fit-content;
+	width: fit-content !important;
+	min-width: 0 !important;
+	min-height: 0 !important;
+	height: auto !important;
+	margin: 8px auto 12px !important;
+	padding: 5px 10px !important;
+	color: var(--cqcw-copy-text) !important;
+	background: var(--cqcw-copy-bg) !important;
+	border: 1px solid var(--cqcw-copy-border) !important;
+	border-radius: var(--cqcw-radius) !important;
+	box-shadow: none !important;
+	font-family: inherit !important;
+	font-size: 12px !important;
+	font-weight: 400 !important;
+	line-height: 1 !important;
+	letter-spacing: normal !important;
+	text-decoration: none !important;
+	text-shadow: none !important;
+	text-transform: none !important;
+	cursor: pointer !important;
+	outline: none !important;
+}
+
+.cqcw-block button.cqcw-block__copy:hover {
+	background: var(--cqcw-copy-bg-hover) !important;
+}
+
+.cqcw-block button.cqcw-block__copy.cqcw-copied {
+	color: var(--cqcw-copied) !important;
+	border-color: var(--cqcw-copied) !important;
+}
+
+.cqcw-block .cqcw-copy-icon {
 	display: inline-block;
 	flex: 0 0 auto;
+	width: 13px;
+	height: 13px;
+}
+
+/* Close button. Same theme-proof isolation reset as the copy button. */
+.cqcw-block button.cqcw-block__button-close,
+.cqcw-block button.cqcw-block__button-close:hover,
+.cqcw-block button.cqcw-block__button-close:focus,
+.cqcw-block button.cqcw-block__button-close:active {
+	box-sizing: border-box !important;
+	position: absolute !important;
+	top: -1px !important;
+	right: -1px !important;
+	width: 18px !important;
+	height: 18px !important;
+	min-width: 0 !important;
+	min-height: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	color: #ffffff !important;
+	background: var(--cqcw-close-bg) !important;
+	border: none !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	font-family: inherit !important;
+	font-size: 14px !important;
+	font-weight: 400 !important;
+	line-height: 16px !important;
+	text-shadow: none !important;
+	cursor: pointer !important;
+	outline: none !important;
 }

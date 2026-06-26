@@ -1,5 +1,13 @@
 *** Crypto QR Code WP Changelog ***
 
+2026.06.26 - version 1.3.0
+ * New - Appearance tab with a live preview so you can design the tooltip, including QR colors, tooltip, address bar, and copy button
+ * New - Custom QR code foreground and background colors
+ * Tweak - Settings screen split into Settings and Appearance tabs
+ * Fix - The widget keeps its own styling on every theme, including block and Full Site Editing themes
+ * Fix - Theme button and link styles can no longer override the tooltip or buttons
+ * Fix - QR code is now reliably centered in the tooltip
+
 2026.06.25 - version 1.2.0
  * New - Copy button so visitors can copy your wallet address in one click
  * New - Coin presets and icons for Bitcoin, Ethereum, Litecoin, Tether, Dogecoin, Solana, Bitcoin Cash, and Monero
