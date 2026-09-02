@@ -6,7 +6,7 @@ Description: Display a cryptocurrency wallet address with a click to reveal QR c
 Author: DopeThemes
 Author URI: https://www.dopethemes.com/
 Text Domain: crypto-qr-code-wp
-Version: 1.3.0
+Version: 1.3.1
 Requires at least: 4.7
 Requires PHP: 7.4
 License: GPLv3
@@ -39,6 +39,15 @@ if( ! class_exists( 'crypto_qr_code_wp' ) ) :
 class crypto_qr_code_wp {
 
 	/**
+	 * Plugin version. Single source of truth for the settings array and for the
+	 * cache-busting version passed to wp_enqueue_style() / wp_enqueue_script(),
+	 * so a release bump cannot leave browsers serving stale assets.
+	 *
+	 * @var string
+	 */
+	public $version = '1.3.1';
+
+	/**
 	 * Plugin settings (paths, urls, version).
 	 *
 	 * @var array
@@ -61,9 +70,14 @@ class crypto_qr_code_wp {
 	 */
 	public function initialize() {
 		// Parameters.
+		// 'name' is deliberately NOT translated here. initialize() runs at plugin load,
+		// long before the init action, so a translation call would force WordPress to load
+		// the text domain just in time. Since 6.7 that emits a _load_textdomain_just_in_time
+		// "called incorrectly" notice on every debug-enabled site. The plugin name is a
+		// proper noun anyway; translate at the point of output if it is ever displayed.
 		$this->settings = array(
-			'name'     => esc_html__( 'Crypto QR Code WP', 'crypto-qr-code-wp' ),
-			'version'  => '1.3.0',
+			'name'     => 'Crypto QR Code WP',
+			'version'  => $this->version,
 			'basename' => plugin_basename( __FILE__ ),
 			'path'     => plugin_dir_path( __FILE__ ),
 			'dir'      => plugin_dir_url( __FILE__ ),

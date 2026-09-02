@@ -2,9 +2,9 @@
 Contributors: ksym04
 Tags: bitcoin, cryptocurrency, qr code, bitcoin donation, crypto donation
 Requires at least: 4.7
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -84,6 +84,11 @@ Yes. You can use the shortcode in a block, or add the Crypto QR Code WP widget t
 2. The settings page where you manage your wallet library and copy shortcodes.
 
 == Changelog ==
+
+= 1.3.1 =
+* Fixed - WordPress 6.7 and newer logged a "translation loading was triggered too early" notice for this plugin on sites with debugging enabled. The plugin name was being translated while the plugin loaded, before WordPress is ready to serve translations.
+* Tweak - the version used to cache bust the plugin assets now comes from a single source, so it can never fall out of step with the plugin version.
+* Tested with WordPress 7.1.
 
 = 1.3.0 =
 * New - Appearance tab with a live preview so you can design the tooltip, including the QR colors, tooltip, address bar, and copy button.
