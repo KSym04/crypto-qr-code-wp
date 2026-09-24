@@ -39,6 +39,8 @@ ROADMAP-*.md
 README.md
 readme.md
 docs/
+# Legacy changelog, frozen at 1.3.0. The readme.txt changelog is the current one.
+changelog.txt
 
 # PHP / JS tooling and manifests
 composer.json

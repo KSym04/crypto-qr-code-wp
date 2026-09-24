@@ -53,8 +53,11 @@ jQuery( document ).ready( function ( $ ) {
 		return n;
 	}
 
+	// Mirrors Crypto_QR_Code_WP_Admin::shortcode_safe() so the live preview
+	// matches the shortcode shown after saving: " becomes ', [ becomes ( and
+	// ] becomes ), because those characters break the shortcode.
 	function escapeAttr( value ) {
-		return String( value ).replace( /"/g, '' );
+		return String( value ).replace( /"/g, '\'' ).replace( /\[/g, '(' ).replace( /\]/g, ')' );
 	}
 
 	// Rebuild a row's shortcode preview from its current field values.

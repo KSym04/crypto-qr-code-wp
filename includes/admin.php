@@ -158,9 +158,10 @@ class Crypto_QR_Code_WP_Admin {
 				if( ! is_array( $row ) ) {
 					continue;
 				}
-				$label   = isset( $row['label'] ) ? sanitize_text_field( $row['label'] ) : '';
-				$address = isset( $row['address'] ) ? sanitize_text_field( $row['address'] ) : '';
-				$heading = isset( $row['heading'] ) ? sanitize_text_field( $row['heading'] ) : '';
+				// shortcode_safe() keeps the generated shortcode intact (no " [ ]).
+				$label   = isset( $row['label'] ) ? self::shortcode_safe( sanitize_text_field( $row['label'] ) ) : '';
+				$address = isset( $row['address'] ) ? self::shortcode_safe( sanitize_text_field( $row['address'] ) ) : '';
+				$heading = isset( $row['heading'] ) ? self::shortcode_safe( sanitize_text_field( $row['heading'] ) ) : '';
 
 				// Skip rows with neither a label nor an address.
 				if( '' === $label && '' === $address ) {
@@ -265,15 +266,37 @@ class Crypto_QR_Code_WP_Admin {
 	}
 
 	/**
+	 * Make a wallet value safe to place inside a generated shortcode attribute.
+	 *
+	 * The generated shortcode wraps every value in double quotes. A double quote
+	 * inside a value ends the attribute early, so WordPress drops the custom
+	 * heading and falls back to the default. A square bracket ends or nests the
+	 * shortcode tag, so part of the shortcode is printed on the page as plain
+	 * text. Each of those characters is swapped for the closest one that reads
+	 * the same: " becomes ', [ becomes ( and ] becomes ).
+	 *
+	 * Applied on save by sanitize() and again by build_shortcode(), so wallets
+	 * saved by earlier versions also produce a working shortcode.
+	 *
+	 * @since 1.3.2
+	 *
+	 * @param string $value A wallet label, address, or heading.
+	 * @return string The value with no double quotes or square brackets.
+	 */
+	public static function shortcode_safe( $value ) {
+		return str_replace( array( '"', '[', ']' ), array( "'", '(', ')' ), (string) $value );
+	}
+
+	/**
 	 * Build the shortcode string for a wallet (used by the template and JS template row).
 	 *
 	 * @param array $wallet Wallet row.
 	 * @return string
 	 */
 	public static function build_shortcode( $wallet ) {
-		$heading = isset( $wallet['heading'] ) && '' !== $wallet['heading'] ? $wallet['heading'] : 'Donate';
-		$label   = isset( $wallet['label'] ) ? $wallet['label'] : '';
-		$address = isset( $wallet['address'] ) ? $wallet['address'] : '';
+		$heading = isset( $wallet['heading'] ) && '' !== $wallet['heading'] ? self::shortcode_safe( $wallet['heading'] ) : 'Donate';
+		$label   = isset( $wallet['label'] ) ? self::shortcode_safe( $wallet['label'] ) : '';
+		$address = isset( $wallet['address'] ) ? self::shortcode_safe( $wallet['address'] ) : '';
 
 		return sprintf(
 			'[cqcw_generator heading="%1$s" label="%2$s" address="%3$s"]',

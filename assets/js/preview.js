@@ -1,5 +1,5 @@
 /**
- * Crypto QR Code WP — Appearance tab live preview.
+ * Crypto QR Code WP: Appearance tab live preview.
  *
  * Renders a sample QR tooltip and updates it in real time as the admin changes
  * the size and color controls. Nothing is saved until the form is submitted; the

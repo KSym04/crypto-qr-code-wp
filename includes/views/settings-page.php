@@ -119,6 +119,12 @@ $cqcw_pv_bg = ! empty( $appearance['qr_bg'] ) ? $appearance['qr_bg'] : '#ffffff'
 		<span class="cqcw-page-subtitle"><?php esc_html_e( 'Wallet Library', 'crypto-qr-code-wp' ); ?></span>
 	</h1>
 
+	<?php
+	// Core prints the "Settings saved" notice only on pages under Settings, so a
+	// top-level page must print the notices that options.php queued itself.
+	settings_errors();
+	?>
+
 	<h2 class="nav-tab-wrapper cqcw-tabs" role="tablist">
 		<a href="#settings" class="nav-tab nav-tab-active" data-cqcw-tab="settings" role="tab" aria-selected="true"><?php esc_html_e( 'Settings', 'crypto-qr-code-wp' ); ?></a>
 		<a href="#appearance" class="nav-tab" data-cqcw-tab="appearance" role="tab" aria-selected="false"><?php esc_html_e( 'Appearance', 'crypto-qr-code-wp' ); ?></a>
@@ -177,7 +183,7 @@ $cqcw_pv_bg = ! empty( $appearance['qr_bg'] ) ? $appearance['qr_bg'] : '#ffffff'
 						<?php
 						printf(
 							/* translators: %s: widget name. */
-							esc_html__( 'Add the %s block or widget and enter the label and address.', 'crypto-qr-code-wp' ),
+							esc_html__( 'Add the %s widget to a widget area and enter the label and address.', 'crypto-qr-code-wp' ),
 							'<strong>' . esc_html__( 'Crypto QR Code WP', 'crypto-qr-code-wp' ) . '</strong>'
 						);
 						?>
@@ -264,7 +270,7 @@ $cqcw_pv_bg = ! empty( $appearance['qr_bg'] ) ? $appearance['qr_bg'] : '#ffffff'
 	<aside class="cqcw-aside">
 		<div class="cqcw-box">
 			<h2><?php esc_html_e( 'Where to use your wallets', 'crypto-qr-code-wp' ); ?></h2>
-			<p><?php esc_html_e( 'Paste a wallet shortcode into any post, page, or text widget, or add the Crypto QR Code WP block or widget. The QR code is generated in the browser, so nothing is stored on your server.', 'crypto-qr-code-wp' ); ?></p>
+			<p><?php esc_html_e( 'Paste a wallet shortcode into any post, page, or text widget (in the block editor, use a Shortcode block), or add the Crypto QR Code WP widget. The QR code is generated in the browser, so nothing is stored on your server.', 'crypto-qr-code-wp' ); ?></p>
 		</div>
 		<div class="cqcw-box cqcw-more">
 			<h2><?php esc_html_e( 'More from DopeThemes', 'crypto-qr-code-wp' ); ?></h2>

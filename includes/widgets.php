@@ -35,12 +35,29 @@ class Crypto_QR_Code_WP_Widget extends WP_Widget {
 		// The shortcode escapes its own output.
 		echo do_shortcode( sprintf(
 			'[cqcw_generator heading="%1$s" label="%2$s" address="%3$s"]',
-			esc_attr( $heading ),
-			esc_attr( $label ),
-			esc_attr( $address )
+			esc_attr( self::without_brackets( $heading ) ),
+			esc_attr( self::without_brackets( $label ) ),
+			esc_attr( self::without_brackets( $address ) )
 		) );
 
 		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Theme-provided markup.
+	}
+
+	/**
+	 * Swap square brackets for parentheses in a value placed inside the shortcode.
+	 *
+	 * esc_attr() already keeps double quotes from ending an attribute early, but it
+	 * leaves square brackets alone, and a bracket ends or nests the shortcode tag so
+	 * part of it prints on the page as plain text. Same mapping the settings page
+	 * uses: [ becomes ( and ] becomes ).
+	 *
+	 * @since 1.3.2
+	 *
+	 * @param string $value A widget heading, label, or address.
+	 * @return string The value with no square brackets.
+	 */
+	private static function without_brackets( $value ) {
+		return str_replace( array( '[', ']' ), array( '(', ')' ), (string) $value );
 	}
 
 	// Create the admin area widget settings form.
